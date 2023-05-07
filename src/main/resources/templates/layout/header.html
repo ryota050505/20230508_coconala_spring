@@ -3,6 +3,10 @@
 <body>
 	<header class="content" th:fragment="head">
 		<div class="title">社員管理システム</div>
+		<div th:if="${loginUser != null}">
+			<div th:text="${loginUser.username}"></div>
+			<!-- TODO: CSSの調整 -->
+		</div>
 	</header>
 </body>
 </html>
