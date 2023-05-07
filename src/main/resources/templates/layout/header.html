@@ -3,6 +3,15 @@
 <body>
 	<header class="content" th:fragment="head">
 		<div class="title">社員管理システム</div>
+	<div>
+		<div th:if="${loginUser != null}">
+			<div>ログイン済みです</div>
+			<div th:text="${loginUser.empName}"></div>
+		</div>
+		<div th:if="${loginUser == null}">
+			<div>ログインしていません</div>
+		</div>
+	</div>
 	</header>
 </body>
 </html>

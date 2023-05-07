@@ -21,6 +21,6 @@ public class EmployeeService {
     }
 
     public Employee findByEmpId(String empId) {
-        return employeeRepository.findByEmpId(empId).orElseThrow();
+        return employeeRepository.findByEmpId(empId);
     }
 }
