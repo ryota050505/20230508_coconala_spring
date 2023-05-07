@@ -10,8 +10,6 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-@Component
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LoginUser implements Serializable {
      private String username;
 }
