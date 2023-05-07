@@ -5,7 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jp.co.sss.sys.model.LoginUser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +21,12 @@ import jp.co.sss.sys.repository.EmployeeRepository;
  *
  */
 @Controller
+@RequiredArgsConstructor
 public class IndexController {
 
-	@Autowired
-	EmployeeRepository empRepository;
-	
+	private final EmployeeRepository empRepository;
+
+	private final LoginUser loginUser;
 	
 
 	/**
@@ -45,8 +47,6 @@ public class IndexController {
 	 * @param res
 	 * @return top.html
 	 */
-	
-	
 	@RequestMapping(path = "/top", method = RequestMethod.POST)
 	public String login(LoginForm loginForm, HttpServletRequest req, HttpServletResponse res ) {
 		
@@ -67,12 +67,11 @@ public class IndexController {
 
 	    }else {
 	      //存在した場合
-	      List<Employee> employeeList = empRepository.findAll();
-	      req.setAttribute("loginUser", employee);
-	      req.setAttribute("loginList", employeeList);
-	      
-	         
-		  return "top";
+//	      List<Employee> employeeList = empRepository.findAll();
+//	      req.setAttribute("loginUser", employee);
+//	      req.setAttribute("loginList", employeeList);
+	      loginUser.setUsername(employee.getEmpId());
+		  return "redirect:/top";
 	    }
     }
 }

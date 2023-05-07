@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sss.sys.entity.Employee;
 
+import java.util.Optional;
+
 /**
  * リポジトリークラス
  * @author Inoue Nami
@@ -12,5 +14,6 @@ import jp.co.sss.sys.entity.Employee;
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
+	public Optional<Employee> findByEmpId(String empId);
 	public Employee findByEmpIdAndPassword(String empId,String password);
 }
