@@ -12,11 +12,14 @@
 	<div class="content">
 		<div class="login">
 			<h3>ログイン画面</h3>
-    
+
 			<div class="form">
 
 				<form th:action="@{/login}" method="post" th:object="${loginForm}">
-				
+
+					<p class="invalid-feedback" th:if="${errorMessage != null}" th:text="${errorMessage}">(error)</p>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('empId')}" th:errors="*{empId}">(error)</p>
+					<p class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">(error)</p>
 
 					<div class="login_label">社員番号</div>
 					<div class="login_input">

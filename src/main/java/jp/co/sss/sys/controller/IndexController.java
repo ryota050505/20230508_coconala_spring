@@ -5,11 +5,15 @@ import jp.co.sss.sys.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.co.sss.sys.entity.Employee;
 import jp.co.sss.sys.form.LoginForm;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +35,7 @@ public class IndexController {
 	 * @return login.html
 	 */
 	@GetMapping("/login")
-	public String login(LoginForm loginForm, Model model) {
+	public String login(@ModelAttribute LoginForm loginForm, Model model) {
 		model.addAttribute("loginUser", session.getAttribute("loginUser"));
 		return "login";
 	}
@@ -42,8 +46,11 @@ public class IndexController {
 	 * @return top.html
 	 */
 	@PostMapping("/login")
-	public String post(LoginForm loginForm) {
-		
+	public String post(@Validated LoginForm loginForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		// 入力フォームにエラーがあれば再度ログインページへ
+		if (bindingResult.hasErrors()) {
+			return login(loginForm, model);
+		}
 		//社員番号
 	    String empId = loginForm.getEmpId();
 	    //パスワード
@@ -55,7 +62,8 @@ public class IndexController {
 	    //ログインチェック
 	    if(employee == null) {
 			//存在しない場合
-			return "login";
+			model.addAttribute("errorMessage", "社員番号またはパスワードが違います。");
+			return login(loginForm, model);
 	    }else {
 			// セッションにユーザーの情報を格納
 			session.setAttribute("loginUser", new LoginUser(employee.getEmpName()));
