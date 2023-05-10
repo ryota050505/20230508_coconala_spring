@@ -13,4 +13,5 @@ import jp.co.sss.sys.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
 	public Employee findByEmpIdAndPassword(String empId,String password);
+	public Employee findByEmpId(String empId);
 }

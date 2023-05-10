@@ -15,31 +15,41 @@
 	<!-- メイン -->
 	<article class="main">
 		<h3 class="page_title">マイページ確認・変更 画面</h3>
-		<table border="1">
-      		<tr>
-      		 <th>社員番号</th>
-      		 <td></td>
-      		</tr>
-      		<tr>
-      		 <th>名前</th>
-      		 <td></td>
-      		</tr>
-      		<tr>
-      		 <th>パスワード</th>
-      		 <td></td>
-      		</tr>
-      		<tr>
-      		 <th>生年月日</th>
-      		 <td></td>
-      		</tr>
-      		<tr>
-      		 <th>性別</th>
-      		 <td></td>
-      		</tr>
-		 </table>
-		 <div class="_input">
-			<input type="submit" value="変更確定">
-		 </div>
+		<form th:action="@{/mypage}" th:method="PUT" th:object="${myPageUpdateForm}">
+			<p class="invalid-feedback" th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}">(error)</p>
+			<p class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">(error)</p>
+			<p class="invalid-feedback" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}">(error)</p>
+			<table border="1">
+				<tr>
+				 <th>社員番号</th>
+				 <td><input type="text" th:value="${employee.empId}" readonly></td>
+				</tr>
+				<tr>
+				 <th>名前</th>
+				 <td><input type="text" th:field="*{empName}"></td>
+				</tr>
+				<tr>
+				 <th>パスワード</th>
+				 <td><input type="text" th:field="*{password}"></td>
+				</tr>
+				<tr>
+				 <th>生年月日</th>
+				 <td><input type="text" th:field="*{birthday}"></td>
+				</tr>
+				<tr>
+				 <th>性別</th>
+				 <td>
+					 <div class="form-check-inline">
+					 	<input type="radio" name="gender" th:text="男" th:value="1" th:disabled="${!employee.gender.equals('1')}" th:checked="${employee.gender.equals('1')}">
+					 	<input type="radio" name="gender" th:text="女" th:value="2" th:disabled="${!employee.gender.equals('2')}" th:checked="${employee.gender.equals('2')}">
+					 </div>
+				 </td>
+				</tr>
+			 </table>
+			 <div class="_input">
+				<input type="submit" value="変更確定">
+			 </div>
+		</form>
 	</article>
 	<!-- フッダー -->
 	<footer th:include="layout/footer :: foot"></footer>

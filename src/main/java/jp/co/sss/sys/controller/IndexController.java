@@ -46,7 +46,7 @@ public class IndexController {
 	 * @return top.html
 	 */
 	@PostMapping("/login")
-	public String post(@Validated LoginForm loginForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+	public String login(@Validated LoginForm loginForm, BindingResult bindingResult, Model model) {
 		// 入力フォームにエラーがあれば再度ログインページへ
 		if (bindingResult.hasErrors()) {
 			return login(loginForm, model);
@@ -66,7 +66,7 @@ public class IndexController {
 			return login(loginForm, model);
 	    }else {
 			// セッションにユーザーの情報を格納
-			session.setAttribute("loginUser", new LoginUser(employee.getEmpName()));
+			session.setAttribute("loginUser", new LoginUser(employee.getEmpId(), employee.getEmpName()));
 			return "redirect:/top";
 	    }
     }
