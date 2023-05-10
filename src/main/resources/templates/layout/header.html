@@ -3,6 +3,9 @@
 <body>
 	<header class="content" th:fragment="head">
 		<div class="title">社員管理システム</div>
+		<div class="user_info" th:if="${loginUser != null}">
+			<div class="login_user" th:text="|ログインユーザー：${loginUser.username}|"></div>
+		</div>
 	</header>
 </body>
 </html>

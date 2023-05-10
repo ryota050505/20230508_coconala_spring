@@ -95,3 +95,15 @@ input[type=submit] {
 	border-radius: 6px;
 	color: #12526d;
 }
+
+/* ---- エラー表示 ---- */
+.invalid-feedback {
+    color: red;
+}
+
+/* ---- ボタンの中のaタグ ---- */
+button a {
+    text-decoration: none;
+    cursor: default;
+    color: inherit;
+}
